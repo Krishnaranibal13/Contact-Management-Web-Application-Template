@@ -10,6 +10,18 @@ pipeline {
             }
         }
 
+        stage('Copy Environment File') {
+            steps {
+                sh '''
+                    cp /home/ubuntu/Contact-Management-Web-Application-Template/.env .env
+                    chmod 600 .env
+
+                    echo ".env copied successfully"
+                    test -r .env
+                '''
+            }
+        }
+
         stage('Build Docker Images') {
             steps {
                 sh 'docker compose build'
